@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ajax Tutorial</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <nav class="navbar navbar-expand-lg" style="background-color: #FFC0CB;">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sasa's Wishlist Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="btn btn-outline-danger" href="{% url 'wishlist:logout' %}" role="button">Logout</a>
+            </div>
+        </nav>
+        <table class="table-striped-columns table-bordered d-flex justify-content-center" id="tbl">
+        </table>
+        <h5 class="d-flex justify-content-center">Hello, here's your wishlist!</h5>
+        <h6 class="d-flex justify-content-center">Sesi terakhir login: {{ last_login }}</h6>
+        <div class="container-xxl">
+            <table class="table table-striped table-hover mb-4" id="showdata">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Harga Barang</th>
+                        <th scope="col" class="align-middle">Deskripsi</th>            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for barang in list_barang %}
+                <tr>
+                    <td>{{barang.nama_barang}}</td>
+                    <td>{{barang.harga_barang}}</td>
+                    <td>{{barang.deskripsi}}</td>
+                </tr>
+                {% endfor %}        
+                </tbody>
+            </table>
+            <div class="submit-form container text-center m-auto" style="width: 800px">
+                <form id="submit-form"></form>
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nama_barang" placeholder="Nama Barang" name="nama_barang" required>
+                    <label for="nama_barang">Nama Barang</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="harga_barang" placeholder="Harga Barang" name="harga_barang" required>
+                    <label for="harga_barang">Harga Barang</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="deskripsi_barang" placeholder="Deskripsi Barang" name="deskripsi_barang" required>
+                    <label for="deskripsi_barang">Deskripsi Barang</label>
+                </div>
+                <input class="btn btn-lg btn-outline-dark fw-bold mb-4" type="submit" value="Add Wishlist +"/>
+            </div>
+        </div>
+    </body>
+{% endblock content %}
